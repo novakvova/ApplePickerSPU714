@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ApplePicker : MonoBehaviour
 {
@@ -23,6 +24,30 @@ public class ApplePicker : MonoBehaviour
             basketList.Add(tBasketGO);
         }
     }
+
+    public void AppleDestroyed()
+    {
+        //видаляємо усі упавші яблука
+        GameObject[] tAppleArray = GameObject.FindGameObjectsWithTag("Apple");
+        foreach (GameObject tGO in tAppleArray)
+        {
+            Destroy(tGO);
+        }
+        //Удаляємо одну корзину
+        //Отримуємо індекс останьої коризини в спивку корзин
+        int basketIndex = basketList.Count - 1;
+        //Отримуємо силку на ігровий обєкт Basket
+        GameObject tBasketGo = basketList[basketIndex];
+        //Видаляємо корзину із списку і видаляємо сам ігровий обєкт
+        basketList.RemoveAt(basketIndex);
+        Destroy(tBasketGo);
+
+        if (basketList.Count == 0)
+        {
+            SceneManager.LoadScene("_Scene_0");
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
