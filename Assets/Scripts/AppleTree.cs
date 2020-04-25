@@ -32,5 +32,24 @@ public class AppleTree : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x += speed * Time.deltaTime;
         transform.position = pos;
+
+        if (pos.x < -leftAndRightEnge)
+        {
+            speed = Mathf.Abs(speed); //починаємо рухатися в право
+        }
+        else if (pos.x > leftAndRightEnge)
+        {
+            speed = -Mathf.Abs(speed); //починаємо рухатися в ліво
+        }
+    }
+
+    private void FixedUpdate() //визываэться только 50 раз в секунду
+    {
+        //Тепер випадкова зміна напрямку привязана до часу,
+        //тому, що виконується в методі FixedUpdate()
+        if (Random.value < changeToChangeDirections)  //починаємо рухатися рандомом, якщо рандом попав
+        {
+            speed *= -1;
+        }
     }
 }
